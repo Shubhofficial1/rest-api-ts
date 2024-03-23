@@ -18,6 +18,24 @@ app.all("/api/all", (req: Request, res: Response) => {
   return res.send("You made a req to all http methods");
 });
 
+app
+  .route("/api/chaining")
+  .get((req: Request, res: Response) => {
+    return res.send("You made a request to GET endpoint");
+  })
+  .post((req: Request, res: Response) => {
+    return res.send("You made a request to POST endpoint");
+  })
+  .put((req: Request, res: Response) => {
+    return res.send("You made a request to PUT endpoint");
+  })
+  .delete((req: Request, res: Response) => {
+    return res.send("You made a request to DELETE endpoint");
+  })
+  .all((req: Request, res: Response) => {
+    return res.send("You made a X request");
+  });
+
 app.listen(5000, () => {
   console.log("Application running on port 5000");
 });
