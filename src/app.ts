@@ -8,12 +8,11 @@ app.use(express.urlencoded({ extended: true }));
 const middleware =
   ({ name }: { name: string }) =>
   (req: Request, res: Response, next: NextFunction) => {
-    //   @ts-ignore
-    req.user = name;
+    res.locals.user = name;
     next();
   };
 
-app.use(middleware({ name: "Shubham1" }));
+app.use(middleware({ name: "Shubham" }));
 
 app.get("/health", (req: Request, res: Response) => {
   return res.send({
@@ -23,8 +22,7 @@ app.get("/health", (req: Request, res: Response) => {
 
 app.get("/api/books/:bookId/:authorId", (req: Request, res: Response) => {
   console.log(req.params);
-  // @ts-ignore
-  console.log(req.user);
+  console.log(res.locals.user);
   return res.send(req.params);
 });
 
