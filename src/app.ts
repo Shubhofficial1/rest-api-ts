@@ -5,36 +5,16 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req: Request, res: Response) => {
-  return res.send("Hello World");
-});
-
-app.post("/api/data", (req: Request, res: Response) => {
-  console.log(req.body);
-  return res.sendStatus(200);
-});
-
-app.all("/api/all", (req: Request, res: Response) => {
-  return res.send("You made a req to all http methods");
-});
-
-app
-  .route("/api/chaining")
-  .get((req: Request, res: Response) => {
-    return res.send("You made a request to GET endpoint");
-  })
-  .post((req: Request, res: Response) => {
-    return res.send("You made a request to POST endpoint");
-  })
-  .put((req: Request, res: Response) => {
-    return res.send("You made a request to PUT endpoint");
-  })
-  .delete((req: Request, res: Response) => {
-    return res.send("You made a request to DELETE endpoint");
-  })
-  .all((req: Request, res: Response) => {
-    return res.send("You made a X request");
+app.get("/health", (req: Request, res: Response) => {
+  return res.send({
+    status: "working",
   });
+});
+
+app.get("/api/books/:bookId/:authorId", (req: Request, res: Response) => {
+  console.log(req.params);
+  return res.send(req.params);
+});
 
 app.listen(5000, () => {
   console.log("Application running on port 5000");
